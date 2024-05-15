@@ -24,7 +24,13 @@ const userSchema = new mongoose.Schema({
         default: false,
     },
     forgotPassToken: String,
-    forgotPassExpiry: Date,
+    forgotPassTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
 })
+
+// In Next.js, it doesn't know whether model exists already or not,
+// So, if model exists already, give reference of the Model or else, creates Model...
+
+const User = mongoose.models.Users || mongoose.model("Users", userSchema);
+export default User;
