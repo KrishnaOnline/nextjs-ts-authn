@@ -8,10 +8,11 @@ import { decodeToken } from "@/helpers/decodeToken";
 dbConnect();
 
 export async function POST(request: NextRequest) {
-    const userID =  await decodeToken(request);
-    const user = User.findOne({_id: userID}).select("-passowrd");   // excluding passowrd...
+    const userID = await decodeToken(request);
+    const user = await User.findOne({_id: userID}).select("-password");   // excluding passowrd...
     return NextResponse.json({
         success: true,
+        message: "User Found",
         data: user,
     }, {status: 200});
 }
